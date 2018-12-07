@@ -9,7 +9,9 @@ from bs4 import BeautifulSoup
 #Add header can be learn from 
 ##https://mp.weixin.qq.com/s?__biz=MzUyOTM5ODgyNw==&mid=2247486021&idx=1&sn=a0ebbd9a6be670318db9d23447f36e14&scene=21#wechat_redirect
 url = 'http://www.mm131.com/qingchun/'
-html = requests.get(url).content
+html = requests.get(url).text
+#Need to use chrome to find the header when doing request
+#html = requests.get(url,headers=headers).text
 soup = BeautifulSoup(html, features = 'lxml')
 
 All_href = soup.find_all('a',{'target': '_blank'})
