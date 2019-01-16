@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+# This is OCW 6.00 test draft
+# And my first time answer for Unit 1 Quiz
 
 
 def findAll(wordList, lStr):
