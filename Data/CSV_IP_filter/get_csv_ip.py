@@ -37,7 +37,7 @@ def get_geo_frmo_ip(list_ip):
 
 
 def main():
-	list_all = read_csv('1000_lines.csv')
+	list_all = read_csv('10_lines.csv')
 	#print list_all
 
 	# Get IP 
@@ -53,6 +53,7 @@ def main():
 		if i['countryCode'] == 'ID':
 			L_id_json.append(i)
 	print 'there are %s sets of data collected' %len(L_id_json)
+	return 
 
 
 if __name__ == '__main__':
