@@ -125,16 +125,19 @@ def build_coder(shift):
         shift = int(shift)
     except:
         raise TypeError('Shift value for encoder need to be int')
-    All = ' ' + string.ascii_letters[:]
+    All = string.lowercase[:] + ' '
+    Allup = string.uppercase[:] + ' '
     Dict = {}
     lth = len(All)
     for i in range(lth):
         Dict[All[i]]=All[(i+shift)%lth]
+    for i in range(lth - 1):  #to avoid set the key.pair for ' ' again.
+        Dict[Allup[i]]=Allup[(i+shift)%lth]
     #print Dict
     return Dict
 
-print build_coder(-1)
-print build_coder('abc')
+#print build_coder(10)
+#print build_coder('abc')
 
 def build_encoder(shift):
     """
@@ -164,6 +167,7 @@ def build_encoder(shift):
     HINT : Use build_coder.
     """
     ### TODO.
+    #shift = int(shift)
     return build_coder(shift)
 
 def build_decoder(shift):
@@ -195,7 +199,9 @@ def build_decoder(shift):
     HINT : Use build_coder.
     """
     ### TODO.
- 
+    decode_shift = 0 - int(shift)
+    return build_coder(decode_shift)
+#print build_decoder(3)
 
 def apply_coder(text, coder):
     """
@@ -212,7 +218,15 @@ def apply_coder(text, coder):
     'Hello, world!'
     """
     ### TODO.
-  
+    S = ''
+    for c in text:
+        if c in coder.keys():
+            S += coder[c]    
+        else:
+            S += c
+    return S
+
+#print apply_coder("Hello, world!", build_encoder(3))
 
 def apply_shift(text, shift):
     """
@@ -232,7 +246,19 @@ def apply_shift(text, shift):
     'Apq hq hiham a.'
     """
     ### TODO.
-   
+    shift = int(shift)
+    coder = build_encoder(shift)
+    S = ''
+    for c in text:
+        if c in coder.keys():
+            S += coder[c]    
+        else:
+            S += c
+    return S   
+
+#print 'The cipher for "This is a test" with shift 8 is:'
+#print apply_shift('This is a test.', 8)
+
 #
 # Problem 2: Codebreaking.
 #
@@ -253,6 +279,19 @@ def find_best_shift(wordlist, text):
     'Hello, world!'
     """
     ### TODO
+    for i in range(28):
+        plain_text = apply_coder(text, build_decoder(i))
+        #print 'with i=', i, 'plain_text is:', plain_text
+        #print '\n'
+        if is_word(wordlist, plain_text.split()[0]):
+            if is_word(wordlist, plain_text.split()[-1]):
+                return i
+    print 'Fail to find decoding shift'
+    return None
+
+#s = apply_coder('Hello, world!', build_encoder(3))
+#print s
+#print 'find_best_shift gives:', find_best_shift(wordlist, s)
    
 #
 # Problem 3: Multi-level encryption.
@@ -274,7 +313,21 @@ def apply_shifts(text, shifts):
     'JufYkaolfapxQdrnzmasmRyrpfdvpmEurrb?'
     """
     ### TODO.
- 
+    try:
+        type(shifts) == list
+    except:
+        raise TypeError('Shift argument for "apply_shifts" need to be list of tuple')
+
+    for tup in shifts:
+    #Each tuple is of the form (location,shift)
+    #apply_shift(text, shift)
+        text = text[:tup[0]] + apply_shift(text[tup[0]:],tup[1])
+        #print 'tup is:',tup
+        #print 'text is:',text
+    return text
+#apply_shifts("Do Androids Dream of Electric Sheep?", [(0,6), (3, 18), (12, 16)]) 
+
+
 #
 # Problem 4: Multi-level decryption.
 #
@@ -291,7 +344,10 @@ def find_best_shifts(wordlist, text):
     wordlist: list of words
     text: scambled text to try to find the words for
     returns: list of tuples.  each tuple is (position in text, amount of shift)
-    
+    """
+    print 'Hint: Make use of the recursive function'
+    print 'find_best_shifts_rec(wordlist, text, start)'
+    """
     Examples:
     >>> s = random_scrambled(wordlist, 3)
     >>> s
