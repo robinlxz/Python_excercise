@@ -61,9 +61,14 @@ def filter_only_ID_IP(L_json):
 	return L_id_json
 
 def isID_IP_single(s_json):
-	if s_json['countryCode'] == 'ID':
-		return True
-	else:
+	try:
+		if s_json['countryCode'] == 'ID':
+			return True
+		else:
+			return False
+	except:
+		print 'now type of s_json is:', type(s_json)
+		print 's_json is:', s_json
 		return False
 
 def main():
@@ -82,23 +87,27 @@ def main():
 	l_ip_group = [list_ip[i:i + n] for i in xrange(0, len(list_ip), n)]
 	#print L_json
 	#print 'l_ip_group is', l_ip_group
-	print 'There are %d groups of IP, each contains %d IPs.' %(len(l_ip_group), n)
+	print 'There are %d groups of IP, other then last one, each contains %d IPs.' %(len(l_ip_group), n)
 	l_id = []
 	i = 0
 	for l_ip in l_ip_group:
 		#print 'l_ip is:', l_ip
 		l_dict = get_geo_multiple_ip(l_ip) #this failed
 		#print 'l_dict is:', l_dict
+		## l_id is a list of dicts, each dicts contains 32 key pairs
+		## each pair is{IP: {return from API}}
 		l_id.append(l_dict) 
 		#print 'l_id is:', l_id
-		i += 1
-		#print 'i=',i
+		
+		#print 'i for l_id(i) now =',i
+		#print 'length for l_id now =',len(l_id)
 	#print l_id
-	for i in l_id[0]:
-		#print 'l_id[0][i] is: ', l_id[0][i]
-		#print 'type of l_id[0][i] is:', type(l_id[0][i])
-		if isID_IP_single(l_id[0][i]):
-			print 'This Data belong to ID \n', l_id[0][i], '\n' 
+		for p in l_id[i]:
+			#print 'l_id[0][i] is: ', l_id[0][i]
+			#print 'type of l_id[0][i] is:', type(l_id[0][i])
+			if isID_IP_single(l_id[i][p]):
+				print 'This Data from ip ##', p, '##belong to ID \n', l_id[i][p], '\n'
+		i += 1
 
 if __name__ == '__main__':
 	main()
