@@ -18,7 +18,15 @@ def evaluate_poly(poly, x):
     returns: float
     """
     # TO DO ... 
-
+    fx = 0
+    assert type(poly) == tuple
+    try:
+        x = float(x)
+    except:
+        print 'Error: the input x (%s) cannot be convert to float' %x
+    for i in range(len(poly)):
+        fx += poly[i]*(x**i)
+    return fx
 
 def compute_deriv(poly):
     """
@@ -34,8 +42,14 @@ def compute_deriv(poly):
     returns: tuple of numbers
     """
     # TO DO ... 
+    result = []
+    for i in range(1,len(poly)): #To start from 1 is because the 0th element is gone
+        result.append(poly[i]*i)
+        #result_t += (poly[i]*i,)
+    result_t = tuple(result)
+    return result_t
 
-def compute_root(poly, x_0, epsilon):
+def compute_root(poly, x_0, epsilon,i):
     """
     Uses Newton's method to find and return a root of a polynomial function.
     Returns a tuple containing the root and the number of iterations required
@@ -56,4 +70,37 @@ def compute_root(poly, x_0, epsilon):
     returns: tuple (float, int)
     """
     # TO DO ... 
+    '''
+    lxz question:
+    1. cannot init i = 1 every time enter function. Then how to record interative?
+    2. What is the mistake when using 'while 1', or 'while a > b'
+    3. Why output is 'None'
+    '''
+    if abs(evaluate_poly(poly, x_0)) < epsilon:
+        #return (x_0, i)
+        print 'now difference is', evaluate_poly(poly, x_0)
+        print 'x_0 = ', x_0
+        print 'interation count i = ', i
+        #return x_0
+        return 'abc'
+    else:
+        print 'now difference is', evaluate_poly(poly, x_0)
+        raw_input('any key...')
+        x_1 = x_0 - evaluate_poly(poly, x_0)/evaluate_poly(compute_deriv(poly), x_0)
+        i += 1
+        print 'x_1 =', x_1
+        #i += 1
+        #print 'i =', i
+        compute_root(poly, x_1, epsilon, i)
+        #return 'def'
+        return x_0
+        #if i > 200:
+        #    exit() 
 
+
+poly = (-13.39, 0.0, 17.5, 3.0, 1.0)
+poly = (0, 0, 1) 
+x_0 = 0.1 
+epsilon = 0.0001
+result = compute_root(poly, x_0, epsilon, 1)
+print 'The filnal output is:', result
