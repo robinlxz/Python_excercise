@@ -82,7 +82,7 @@ def compute_root(poly, x_0, epsilon,i):
         print 'x_0 = ', x_0
         print 'interation count i = ', i
         #return x_0
-        return 'abc'
+        return x_0
     else:
         print 'now difference is', evaluate_poly(poly, x_0)
         raw_input('any key...')
@@ -91,9 +91,9 @@ def compute_root(poly, x_0, epsilon,i):
         print 'x_1 =', x_1
         #i += 1
         #print 'i =', i
-        compute_root(poly, x_1, epsilon, i)
+        r = compute_root(poly, x_1, epsilon, i)
         #return 'def'
-        return x_0
+        return r
         #if i > 200:
         #    exit() 
 
