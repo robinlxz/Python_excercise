@@ -2,6 +2,7 @@
 #
 # Successive Approximation
 #
+#url: https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-00sc-introduction-to-computer-science-and-programming-spring-2011/unit-1/lecture-6-recursion/MIT6_00SCS11_ps2.pdf
 
 def evaluate_poly(poly, x):
     """
@@ -23,7 +24,7 @@ def evaluate_poly(poly, x):
     try:
         x = float(x)
     except:
-        print 'Error: the input x (%s) cannot be convert to float' %x
+        print 'Error: the input x (%s) cannot be convert to float' % x
     for i in range(len(poly)):
         fx += poly[i]*(x**i)
     return fx
@@ -73,34 +74,52 @@ def compute_root(poly, x_0, epsilon,i):
     '''
     lxz question:
     1. cannot init i = 1 every time enter function. Then how to record interative?
+    A: Either using while, or add one more parameter in recursive function
     2. What is the mistake when using 'while 1', or 'while a > b'
+    A: Using while, then no recursive is needed
     3. Why output is 'None'
+    A: Because the return is not open for recursive case (https://www.cnblogs.com/yechenkai/p/7143475.html)
     '''
     if abs(evaluate_poly(poly, x_0)) < epsilon:
         #return (x_0, i)
-        print 'now difference is', evaluate_poly(poly, x_0)
-        print 'x_0 = ', x_0
+        #print 'now difference is', evaluate_poly(poly, x_0)
+        #print 'x_0 = ', x_0
         print 'interation count i = ', i
         #return x_0
-        return x_0
+        return (x_0,i)
     else:
         print 'now difference is', evaluate_poly(poly, x_0)
-        raw_input('any key...')
+        #raw_input('any key...')
         x_1 = x_0 - evaluate_poly(poly, x_0)/evaluate_poly(compute_deriv(poly), x_0)
         i += 1
-        print 'x_1 =', x_1
+        #print 'x_1 =', x_1
         #i += 1
         #print 'i =', i
-        r = compute_root(poly, x_1, epsilon, i)
-        #return 'def'
-        return r
+        #r = compute_root(poly, x_1, epsilon, i)
+        r_t = compute_root(poly, x_1, epsilon, i)
+        return r_t
         #if i > 200:
         #    exit() 
 
+def compute_root2(poly, x_0, epsilon):
+    while abs(x_0) > epsilon:
+        x_0 = evaluate_poly(poly, x_0)/evaluate_poly(compute_deriv(poly), x_0)
+        #x_0 = compute_root2(poly, x_0, epsilon)
+    return x_0
 
-poly = (-13.39, 0.0, 17.5, 3.0, 1.0)
-poly = (0, 0, 1) 
-x_0 = 0.1 
-epsilon = 0.0001
-result = compute_root(poly, x_0, epsilon, 1)
-print 'The filnal output is:', result
+def main():
+    poly = (-13.39, 0.0, 17.5, 3.0, 1.0)
+    #poly = (0, 0, 1)
+    x_0 = 0.1
+    epsilon = 0.0001
+    result = compute_root(poly, x_0, epsilon, 1)
+    assert len(result) == 2
+
+    r2 = compute_root2(poly, x_0, epsilon)
+    print r2
+    #print 'The filnal output is:', result
+    print 'The root we found is %s, the amount of iterations is %s.' %(result[0], result[1])
+
+
+if __name__ == '__main__':
+    main()
