@@ -11,6 +11,7 @@ import random
 import string
 
 WORDLIST_FILENAME = "words.txt"
+ROUND_LIMIT = 15
 
 def load_words():
     """
@@ -47,32 +48,35 @@ wordlist = load_words()
 
 # your code begins here!
 
-def game_intro():
+def game_intro(ROUND_LIMIT):
     print '''The game "hangman" start, you will be given: 
     1. a word with only lower case letter
     2. the length of the word
-    3. the amount of 'Guesses' you have, and only lost one Guess when it's wrong
-    '''
+    3. the amount of 'Guesses' you have is %s, and only lost one Guess when it's wrong.
+    ''' %ROUND_LIMIT
 
 def show_length(word):
     assert len(word)>0
-    print 'The length of the word is %s.' %len(word)
+    print ('Welcome to the game, Hangman!\n'
+           'I am thinking of a word that is %s letters long.') % len(word)
 
-guess = raw_input('Please guess a letter:')
+def get_guess_input():
+    guess = raw_input('Please guess a letter:')
+    assert guess in string.ascii_lowercase
+    return guess
 
-def get_output(word, guess):
-    output = ''
-    for l in word:
-        if l == guess:
-            output += l
-        else:
-            output += '_'
-    return output
+# def get_output(word, guess):
+#     output = ''
+#     for l in word:
+#         if l == guess:
+#             output += l
+#         else:
+#             output += '_'
+#     return output
 
 def get_next_output(word, guess, status):
     output = ''
     assert len(word) == len(status)
-    assert guess in string.ascii_lowercase
     for i in range(len(word)):
         if guess == word[i]:
             output += guess
@@ -82,4 +86,34 @@ def get_next_output(word, guess, status):
             output += '_'
     return output
 
+def game_over():
+    print 'Game Over.'
+    exit()
 
+def game_start():
+    word = choose_word(wordlist)
+    print word
+    game_intro(ROUND_LIMIT)
+    show_length(word)
+    status = '_'*len(word)
+    i = ROUND_LIMIT
+    while status != word:
+        if i == 0:
+            print 'you\'ve reached %s rounds, current status is %s.' %(ROUND_LIMIT, status)
+            game_over()
+        print '------------'
+        print 'You have %s guesses left' %i
+        guess = get_guess_input()
+        status = get_next_output(word, guess, status)
+        print status
+        if guess in word:
+            i += 1
+        i -= 1
+
+    print "You get it! The word is %s, you get it in %s round.\nCongratulations, you won!" %(word, i)
+
+def main():
+    game_start()
+
+if __name__ == '__main__':
+    main()
