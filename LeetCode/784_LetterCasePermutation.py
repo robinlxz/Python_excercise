@@ -37,7 +37,7 @@ class Solution(object):
                 #print 'S[i].lower is', S[i].lower
                 #print '[S[i].lower, S[i].upper] is', [S[i].lower, S[i].upper]
                 l_all.append([S[i].lower(), S[i].upper()])
-                print l_all[0]
+                #print l_all[0]
             else:
                 l_all.append([S[i]])
         #print len(l_all)
@@ -48,11 +48,36 @@ class Solution(object):
                     for a2 in l_all[2]:
                         for a3 in l_all[3]:
                             print a0+a1+a2+a3
-                            #list_to_return.append(a0+a1+a2+a3)
+                            list_to_return.append(a0+a1+a2+a3)
 
         return list_to_return
 
+
+'''Below is one of answer online'''
+
+class Solution2(object):
+    def letterCasePermutation(self, S):
+        """
+        :type S: str
+        :rtype: List[str]
+        """
+        res = []
+
+        def helper(s, p):
+            if s == "":
+                res.append(p)
+                return
+            if s[0].isdigit():
+                helper(s[1:], p + s[0])
+            else:
+                helper(s[1:], p + s[0].upper())
+                helper(s[1:], p + s[0].lower())
+
+        helper(S, "")
+        return res
+
 #c = '123'
-print 'A'.lower
-A = Solution()
-A.letterCasePermutation('AbCd')
+A = Solution2()
+t1 = 123
+t2 = 123
+print A.letterCasePermutation('A3d')
