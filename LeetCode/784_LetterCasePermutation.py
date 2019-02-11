@@ -76,8 +76,30 @@ class Solution2(object):
         helper(S, "")
         return res
 
-#c = '123'
-A = Solution2()
-t1 = 123
-t2 = 123
-print A.letterCasePermutation('A3d')
+
+
+
+
+
+
+
+
+'''rewrite'''
+class Solution3(object):
+    def letterCasePermutation(self, S):
+        res = []
+        def helper(s, p):
+            if s == "":
+                res.append(p)
+                return
+            elif s[0].isdigit():
+                helper(s[1:], p+s[0])
+            else:
+                helper(s[1:], p + s[0].lower())
+                helper(s[1:], p + s[0].upper())
+
+        helper(S,"")
+        return res
+
+A = Solution3()
+print A.letterCasePermutation('a78S7')
