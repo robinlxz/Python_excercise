@@ -404,3 +404,4 @@ def decrypt_fable():
 #
 #
 
+print random_scrambled(wordlist, 1)

@@ -84,7 +84,7 @@ class Solution2(object):
 
 
 
-'''rewrite'''
+'''rewrite by l'''
 class Solution3(object):
     def letterCasePermutation(self, S):
         res = []
