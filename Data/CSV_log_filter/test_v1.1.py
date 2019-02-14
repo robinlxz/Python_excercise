@@ -7,14 +7,28 @@ import json
 FILEPATH='/Users/linxz/Documents/20190125_server_notification_log/'
 
 def read_csv(file_name):
-    ''' This function read the data by raws in csv, output into a list '''
+    ''' This function read the data by raws in csv, into a list '''
     with open(file_name, 'rb') as f:
         reader = csv.reader(f)
         list_output = list(reader)
+
     return list_output
+
+# def main():
+#     list_all = read_csv('100_lines.csv')
+#     print len(list_all)
+#     print list_all[0][7]
+#     #for i in range(10):
+#     #    print list_all[i][1]
+#     print " 'timestamp': 1546790438" in list_all[0]
 
 def getListFromSourceCSV():
     list_071_0107 = read_csv(FILEPATH+'100071_01_07.csv')
+
+ #   print list_071_0107[1][5][9:]
+ #   exit()
+
+
     list_071_0108 = read_csv(FILEPATH+'100071_01_08.csv')
     list_072_0107 = read_csv(FILEPATH+'100072_01_07.csv')
     list_072_0108 = read_csv(FILEPATH+'100072_01_08.csv')
@@ -22,15 +36,13 @@ def getListFromSourceCSV():
     list_836_0108 = read_csv(FILEPATH+'32836_01_08.csv')
     list_837_0107 = read_csv(FILEPATH+'32837_01_07.csv')
     list_837_0108 = read_csv(FILEPATH+'32837_01_08.csv')
-    #fo4mth = []
-    fo4mth = {}
+    #print len(list_071_0107)
+    #print len(list_071_0108)
+    fo4mth = []
     fo4mvn = []
     fo4th = []
     fo4vn = []
     def getTimestampFromList(res, input_list):
-        print input_list[0][17][-1]
-        # print input_list[1][16]
-        exit()
         for x in input_list:
             if 'timestamp' in x[7]:
                 if 'uid' in x[6]:
@@ -45,40 +57,8 @@ def getListFromSourceCSV():
                 return False
         return True
 
-    def getTimestampFromList(res_dict, input_list, label):
-        print input_list[0][17][-1]
-        print input_list[1][16]
-        assert type(label) == str
-
-        platformDict = {'0':'ios', '1':'aos', '2':'other'}
-
-        for x in input_list:
-            # if input_list.index(x) == 210:
-            #     print ('uid:' + x[5][9:], 'ts:' + x[6][14:])
-            #     res_dict[('uid:' + x[5][9:], 'ts:' + x[6][14:])] = 1
-            #     exit()
-            try:
-                if 'timestamp' in x[7] and 'uid' in x[6]:
-                    print ('uid:'+x[6][9:],'ts:'+x[7][14:])
-                    print input_list.index(x)
-                    res_dict[('uid:'+x[6][9:],'ts:'+x[7][14:])] = (label,platformDict[x[17][-1]])
-                elif 'timestamp' in x[6] and 'uid' in x[5]: #Because some data have misplacement
-                    print ('uid:' + x[5][9:], 'ts:' + x[6][14:])
-                    print input_list.index(x)
-                    res_dict[(('uid:'+x[5][9:],'ts:'+x[6][14:]))] = (label,platformDict[x[16][-1]])
-                else:
-                    print 'this line of data as doesn\'t fit. \n%s\n' %x
-                    return False
-            except:
-                print 'fail here'
-                print input_list.index(x)
-                exit()
-        return True
-
-    if getTimestampFromList(fo4mth, list_071_0107, 'fo4mth') and getTimestampFromList(fo4mth, list_071_0108, 'fo4mth'):
+    if getTimestampFromList(fo4mth, list_071_0107) and getTimestampFromList(fo4mth, list_071_0108):
         print 'fo4mth timestamp collected, in total %s lines' %len(fo4mth)
-    print 'debug till here is fine'
-    exit()
     if getTimestampFromList(fo4mvn, list_072_0107) and getTimestampFromList(fo4mvn, list_072_0108):
         print 'fo4mvn timestamp collected, in total %s lines' %len(fo4mvn)
     if getTimestampFromList(fo4th, list_836_0107) and getTimestampFromList(fo4th, list_836_0108):
@@ -86,6 +66,10 @@ def getListFromSourceCSV():
     if getTimestampFromList(fo4vn, list_837_0107) and getTimestampFromList(fo4vn, list_837_0108):
         print 'fo4vn timestamp collected, in total %s lines' %len(fo4vn)
 
+    # print len(fo4mth)
+    # print len(fo4mvn)
+    # print len(fo4th)
+    # print len(fo4vn)
     return [fo4mth, fo4th, fo4mvn, fo4vn]
 
 def matchToAppend(list_record, match_list, append_str):
