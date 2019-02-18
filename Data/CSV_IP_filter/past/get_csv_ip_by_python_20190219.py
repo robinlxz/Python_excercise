@@ -7,7 +7,7 @@ from time import sleep
 import pygeoip
 
 # Ugly Global varialbe for easily change code
-COUNTRY_NAME = 'MY'
+COUNTRY_NAME = 'ID'
 
 
 def read_csv(file_name):
@@ -73,30 +73,6 @@ def filter_only_ID_IP(L_json):  # For online API method only
 def stop_here():
     raw_input('exiting now...')  # for debug
     exit()  # for debug
-
-
-def find_ID_IP_by_API(l_ip_group):  # This part of code is only copy from main, cannot use
-    l_id = []
-    i = 0
-    for l_ip in l_ip_group:
-        # print 'l_ip is:', l_ip
-        l_dict = get_geo_multiple_ip(l_ip)
-
-        # print 'l_dict is:', l_dict
-        ## l_id is a list of dicts, each dicts contains 32 key pairs
-        ## each pair is{IP: {return from API}}
-        l_id.append(l_dict)
-        # print 'i for l_id(i) now =',i
-        # print 'length for l_id now =',len(l_id)
-        # print l_id
-        for p in l_id[i]:
-            # print 'l_id[0][i] is: ', l_id[0][i]
-            # print 'type of l_id[0][i] is:', type(l_id[0][i])
-            if isID_IP_single(l_id[i][p]):
-                print 'This Data from ip ##', p, '##belong to ID \n', l_id[i][p], '\n'
-        i += 1
-        sleep(1)  # To prevent API response: OVER_QUERY_LIMIT
-    return l_id
 
 
 def isID_IP_single(s_json):  # For online API method only
