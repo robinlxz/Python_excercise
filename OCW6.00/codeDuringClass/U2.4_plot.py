@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/Users/linxz/miniconda2/bin/python
 # This is OCW 6.00 test draft
 
 import random
