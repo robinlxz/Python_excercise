@@ -19,7 +19,7 @@ _______________________
 2. from csv, check if it is in the tuple
 '''
 
-FILEPATH='/Users/linxz/Documents/20190125_server_notification_log/'
+FILEPATH='/Users/linxz/Documents/20190416_server_notification_log/'
 
 def read_csv(file_name):
     ''' This function read the data by raws in csv, output into a list '''
@@ -29,7 +29,7 @@ def read_csv(file_name):
     return list_output
 
 def getListFromSourceCSV():
-    list_071_0107 = read_csv(FILEPATH+'100071_01_07.csv')
+    list_071_01_07 = read_csv(FILEPATH+'100071_01_07.csv')
     list_071_0108 = read_csv(FILEPATH+'100071_01_08.csv')
     list_072_0107 = read_csv(FILEPATH+'100072_01_07.csv')
     list_072_0108 = read_csv(FILEPATH+'100072_01_08.csv')
@@ -87,7 +87,7 @@ def getListFromSourceCSV():
         print 'now res_dict as the length', len(res_dict)
         return True
 
-    if getTimestampFromList(fo4mth, list_071_0107, 'fo4mth') and getTimestampFromList(fo4mth, list_071_0108, 'fo4mth'):
+    if getTimestampFromList(fo4mth, list_071_01_07, 'fo4mth') and getTimestampFromList(fo4mth, list_071_0108, 'fo4mth'):
         print 'fo4mth timestamp collected, in total %s lines' %len(fo4mth)
     if getTimestampFromList(fo4mvn, list_072_0107, 'fo4mvn') and getTimestampFromList(fo4mvn, list_072_0108, 'fo4mvn'):
         print 'fo4mvn timestamp collected, in total %s lines' %len(fo4mvn)
