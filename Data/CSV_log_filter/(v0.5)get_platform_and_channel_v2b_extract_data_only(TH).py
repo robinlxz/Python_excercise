@@ -4,14 +4,14 @@ from datetime import datetime
 
 '''
 #xminds
-1. import all 10071/72,32837/87 csv
+1. import all 10071/72,32836/87 csv
 2. take out 10071[i][7] values into a list
 3. convert to CSV and import Compare_GOP_CSLOG_20190107_20190108 to a list.
 list_original
 4.
 if " 'timestamp': "+str(list_original[i][6]) in 10071
 list_original[i].append(fo4m)
-if the pair is in 32837
+if the pair is in 32836
 list_original[i].append(fo4)
 else:
 	print 'error, %s not exist' %list_original[i][6]
@@ -21,9 +21,9 @@ _______________________
 2. from csv, check if it is in the tuple
 '''
 
-FILEPAVN='/Users/linxz/Documents/20190416_server_notification_log/'
-FILE1 = '100072_04_18.csv'
-FILE2 = '100072_04_19.csv'
+FILEPATH='/Users/linxz/Documents/20190416_server_notification_log/'
+FILE1 = '100071_04_10.csv'
+FILE2 = '100071_04_11.csv'
 FILE3 = '100072_01_07.csv'
 FILE4 = '100072_01_08.csv'
 
@@ -35,14 +35,14 @@ def read_csv(file_name):
     return list_output
 
 def getListFromSourceCSV():
-    list_071_0107 = read_csv(FILEPAVN + FILE1)
-    list_071_0108 = read_csv(FILEPAVN + FILE2)
-    #list_072_0107 = read_csv(FILEPAVN + FILE3)
-    #list_072_0108 = read_csv(FILEPAVN + FILE4)
-    list_836_0107 = read_csv(FILEPAVN+'32837_04_18.csv')
-    list_836_0108 = read_csv(FILEPAVN+'32837_04_19.csv')
-    #list_837_0107 = read_csv(FILEPAVN+'32837_01_07.csv')
-    #list_837_0108 = read_csv(FILEPAVN+'32837_01_08.csv')
+    list_071_0107 = read_csv(FILEPATH + FILE1)
+    list_071_0108 = read_csv(FILEPATH + FILE2)
+    #list_072_0107 = read_csv(FILEPATH + FILE3)
+    #list_072_0108 = read_csv(FILEPATH + FILE4)
+    list_836_0107 = read_csv(FILEPATH+'32836_04_10.csv')
+    list_836_0108 = read_csv(FILEPATH+'32836_04_11.csv')
+    #list_837_0107 = read_csv(FILEPATH+'32837_01_07.csv')
+    #list_837_0108 = read_csv(FILEPATH+'32837_01_08.csv')
     fo4mth = {}
     fo4mvn = {}
     fo4th = {}
@@ -125,125 +125,157 @@ def matchDictToAppend(list_record, match_dict, append_str):
     print len(list_record)
     return list_record
 
-def main():
-    list_100072_04_18 = read_csv(FILEPAVN + '100072_04_18.csv')
-    list_100072_04_19 = read_csv(FILEPAVN + '100072_04_19.csv')
-    list_100072_04_20 = read_csv(FILEPAVN + '100072_04_20.csv')
-    list_100072_04_21 = read_csv(FILEPAVN + '100072_04_21.csv')
-    list_32837_04_18 = read_csv(FILEPAVN + '32837_04_18.csv')
-    list_32837_04_19 = read_csv(FILEPAVN + '32837_04_19.csv')
-    list_32837_04_20 = read_csv(FILEPAVN + '32837_04_20.csv')
-    list_32837_04_21 = read_csv(FILEPAVN + '32837_04_21.csv')
+def main_past():
+#    list_th_record = read_csv(FILEPATH+'gop_log_th.csv')
+#    list_vn_record = read_csv(FILEPATH+'gop_log_vn.csv')
+    list_th_record = [];
+    list_vn_record = [];
 
-    output_100072_04_18 = []
-    output_100072_04_18.append(
-        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
-    for row in list_100072_04_18:
-        if 'timestamp' in row[14]:
-            a = 0
-            output_100072_04_18.append([row[8+a][9:], '100072', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M VN'])
-        elif 'timestamp' in row[13]:
-            a = -1
-            output_100072_04_18.append([row[8+a][9:], '100072', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M VN'])
+    [fo4mth, fo4th, fo4mvn, fo4vn] = getListFromSourceCSV()
 
-    output_100072_04_19 = []
-    output_100072_04_19.append(
-        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
-    for row in list_100072_04_19:
-        if 'timestamp' in row[14]:
-            a = 0
-            output_100072_04_19.append([row[8+a][9:], '100072', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M VN'])
-        elif 'timestamp' in row[13]:
-            a = -1
-            output_100072_04_19.append([row[8+a][9:], '100072', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M VN'])
+    list_th_record = matchDictToAppend(list_th_record, fo4mth, 'fo4mth')
+    list_th_record = matchDictToAppend(list_th_record, fo4th, 'fo4th')
+    list_vn_record = matchDictToAppend(list_vn_record, fo4mvn, 'fo4mvn')
+    list_vn_record = matchDictToAppend(list_vn_record, fo4vn, 'fo4vn')
 
-    output_100072_04_20 = []
-    output_100072_04_20.append(
-        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
-    for row in list_100072_04_20:
-        if 'timestamp' in row[14]:
-            a = 0
-            output_100072_04_20.append([row[8+a][9:], '100072', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M VN'])
-        elif 'timestamp' in row[13]:
-            a = -1
-            output_100072_04_20.append([row[8+a][9:], '100072', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M VN'])
-
-    output_100072_04_21 = []
-    output_100072_04_21.append(
-        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
-    for row in list_100072_04_21:
-        if 'timestamp' in row[14]:
-            a = 0
-            output_100072_04_21.append([row[8+a][9:], '100072', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M VN'])
-        elif 'timestamp' in row[13]:
-            a = -1
-            output_100072_04_21.append([row[8+a][9:], '100072', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M VN'])
-
-    print len(output_100072_04_18), len(output_100072_04_19), len(output_100072_04_20), len(output_100072_04_21)
-
-    output_32837_04_18 = []
-    output_32837_04_18.append(
-        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
-    for row in list_32837_04_18:
-        if 'timestamp' in row[13]:
-            output_32837_04_18.append([row[7][9:], '32837', row[14], row[23], row[10], datetime.utcfromtimestamp(int(row[13][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4 VN'])
-        else:
-            print "The method need to be adjusted!"
-            print row[13]
-
-    output_32837_04_19 = []
-    output_32837_04_19.append(
-        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
-    for row in list_32837_04_19:
-        if 'timestamp' in row[13]:
-            output_32837_04_19.append([row[7][9:], '32837', row[14], row[23], row[10], datetime.utcfromtimestamp(int(row[13][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4 VN'])
-        else:
-            print "The method need to be adjusted!"
-            print row[13]
-
-    output_32837_04_20 = []
-    output_32837_04_20.append(
-        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
-    for row in list_32837_04_20:
-        if 'timestamp' in row[13]:
-            output_32837_04_20.append([row[7][9:], '32837', row[14], row[23], row[10], datetime.utcfromtimestamp(int(row[13][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4 VN'])
-        else:
-            print "The method need to be adjusted!"
-            print row[13]
-
-    output_32837_04_21 = []
-    output_32837_04_21.append(
-        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
-    for row in list_32837_04_21:
-        if 'timestamp' in row[13]:
-            output_32837_04_21.append([row[7][9:], '32837', row[14], row[23], row[10], datetime.utcfromtimestamp(int(row[13][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4 VN'])
-        else:
-            print "The method need to be adjusted!"
-            print row[13]
-
-    print len(output_100072_04_18), len(output_100072_04_19), len(output_100072_04_20), len(output_100072_04_21), len(output_32837_04_18), len(output_32837_04_19), len(output_32837_04_20), len(output_32837_04_21)
-
-    with open(FILEPAVN+'100072_04_18_output.csv','wb') as resultFile:
+    '''Output result to csv'''
+    with open(FILEPATH+'th_output.csv','wb') as resultFile:
         wr = csv.writer(resultFile, dialect='excel')
-        for item in output_100072_04_18:
+        for item in list_th_record:
             try:
                 wr.writerow(item)
             except:
                 print "Fail to write to file"
                 break
-        for item in output_100072_04_19:
+
+    with open(FILEPATH+'vn_output.csv','wb') as resultFile:
+        wr = csv.writer(resultFile, dialect='excel')
+        for item in list_vn_record:
+            try:
+                wr.writerow(item)
+            except:
+                print "Fail to write to file"
+                break
+
+def main():
+    list_100071_04_10 = read_csv(FILEPATH + '100071_04_10.csv')
+    list_100071_04_11 = read_csv(FILEPATH + '100071_04_11.csv')
+    list_100071_04_12 = read_csv(FILEPATH + '100071_04_12.csv')
+    list_100071_04_13 = read_csv(FILEPATH + '100071_04_13.csv')
+    list_32836_10 = read_csv(FILEPATH + '32836_04_10.csv')
+    list_32836_11 = read_csv(FILEPATH + '32836_04_11.csv')
+    list_32836_12 = read_csv(FILEPATH + '32836_04_12.csv')
+    list_32836_13 = read_csv(FILEPATH + '32836_04_13.csv')
+
+    output_100071_04_10 = []
+    output_100071_04_10.append(
+        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
+    for row in list_100071_04_10:
+        if 'timestamp' in row[14]:
+            a = 0
+            output_100071_04_10.append([row[8+a][9:], '100071', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M TH'])
+        elif 'timestamp' in row[13]:
+            a = -1
+            output_100071_04_10.append([row[8+a][9:], '100071', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M TH'])
+
+    output_100071_04_11 = []
+    output_100071_04_11.append(
+        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
+    for row in list_100071_04_11:
+        if 'timestamp' in row[14]:
+            a = 0
+            output_100071_04_11.append([row[8+a][9:], '100071', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M TH'])
+        elif 'timestamp' in row[13]:
+            a = -1
+            output_100071_04_11.append([row[8+a][9:], '100071', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M TH'])
+
+    output_100071_04_12 = []
+    output_100071_04_12.append(
+        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
+    for row in list_100071_04_12:
+        if 'timestamp' in row[14]:
+            a = 0
+            output_100071_04_12.append([row[8+a][9:], '100071', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M TH'])
+        elif 'timestamp' in row[13]:
+            a = -1
+            output_100071_04_12.append([row[8+a][9:], '100071', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M TH'])
+
+    output_100071_04_13 = []
+    output_100071_04_13.append(
+        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
+    for row in list_100071_04_13:
+        if 'timestamp' in row[14]:
+            a = 0
+            output_100071_04_13.append([row[8+a][9:], '100071', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M TH'])
+        elif 'timestamp' in row[13]:
+            a = -1
+            output_100071_04_13.append([row[8+a][9:], '100071', row[15+a], row[24+a], row[11+a], datetime.utcfromtimestamp(int(row[14+a][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4M TH'])
+
+    print len(output_100071_04_10), len(output_100071_04_11), len(output_100071_04_12), len(output_100071_04_13)
+
+    output_32836_10 = []
+    output_32836_10.append(
+        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
+    for row in list_32836_10:
+        if 'timestamp' in row[13]:
+            output_32836_10.append([row[7][9:], '32836', row[14], row[23], row[10], datetime.utcfromtimestamp(int(row[13][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4 TH'])
+        else:
+            print "The method need to be adjusted!"
+            print row[13]
+
+    output_32836_11 = []
+    output_32836_11.append(
+        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
+    for row in list_32836_11:
+        if 'timestamp' in row[13]:
+            output_32836_11.append([row[7][9:], '32836', row[14], row[23], row[10], datetime.utcfromtimestamp(int(row[13][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4 TH'])
+        else:
+            print "The method need to be adjusted!"
+            print row[13]
+
+    output_32836_12 = []
+    output_32836_12.append(
+        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
+    for row in list_32836_12:
+        if 'timestamp' in row[13]:
+            output_32836_12.append([row[7][9:], '32836', row[14], row[23], row[10], datetime.utcfromtimestamp(int(row[13][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4 TH'])
+        else:
+            print "The method need to be adjusted!"
+            print row[13]
+
+    output_32836_13 = []
+    output_32836_13.append(
+        ['garena_uid', 'aid', 'currency', 'currency_amount', 'point_amount', 'datetime (GMT+0)', 'platform'])
+    for row in list_32836_13:
+        if 'timestamp' in row[13]:
+            output_32836_13.append([row[7][9:], '32836', row[14], row[23], row[10], datetime.utcfromtimestamp(int(row[13][-10:])).strftime('%Y-%m-%d %H:%M:%S'), 'platform: FO4 TH'])
+        else:
+            print "The method need to be adjusted!"
+            print row[13]
+
+    print len(output_100071_04_10), len(output_100071_04_11), len(output_100071_04_12), len(output_100071_04_13), len(output_32836_10), len(output_32836_11), len(output_32836_12), len(output_32836_13)
+
+    with open(FILEPATH+'100071_04_10_output.csv','wb') as resultFile:
+        wr = csv.writer(resultFile, dialect='excel')
+        for item in output_100071_04_10:
+            try:
+                wr.writerow(item)
+            except:
+                print "Fail to write to file"
+                break
+        for item in output_100071_04_11:
             wr.writerow(item)
-        for item in output_100072_04_20:
+        for item in output_100071_04_12:
             wr.writerow(item)
-        for item in output_100072_04_21:
+        for item in output_100071_04_13:
             wr.writerow(item)
-        for item in output_32837_04_18:
+        for item in output_32836_10:
             wr.writerow(item)
-        for item in output_32837_04_19:
+        for item in output_32836_11:
             wr.writerow(item)
-        for item in output_32837_04_20:
+        for item in output_32836_12:
             wr.writerow(item)
-        for item in output_32837_04_21:
+        for item in output_32836_13:
             wr.writerow(item)
 
 if __name__ == '__main__':
