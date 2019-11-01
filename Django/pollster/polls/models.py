@@ -15,3 +15,13 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+
+
+# class Dish(models.Model):
+#     dish_name = models.CharField(max_length = 200)
+#     dish_price = models.DecimalField(max_digits = 5, decimal_places = 2)
+
+#     def __str__(self):
+#         return self.dish_name
+
