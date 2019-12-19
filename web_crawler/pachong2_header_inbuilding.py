@@ -2,6 +2,8 @@
 import requests
 from lxml import html
 from urllib import urlretrieve
+#Python3
+#from urllib.request import urlretrieve
 from bs4 import BeautifulSoup
 
 #This url failed! Interesting, seem to be something blocking urlretrieve
