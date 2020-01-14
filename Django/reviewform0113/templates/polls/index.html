@@ -1,0 +1,13 @@
+{% for question in question_list %}
+  <h2>{{question.question_text}}</h2>
+  {% for choice in question.choice_set.all %}
+  <h3>{{choice.choice_text}}</h3>
+  {% endfor %}
+{% endfor %}
+<hr>
+<h2>Submit a question below</h2>
+<form method="POST">
+  {% csrf_token %}
+  {{question_form}}
+  <button>Submit</button>
+</form>
