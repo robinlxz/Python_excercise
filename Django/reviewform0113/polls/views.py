@@ -18,34 +18,6 @@ class IndexView(View):
     question_form = QuesitonForm()
   
 
-def contact(request):
-
-  if request.method == 'POST':
-    form = ContactForm(request.POST)
-    if form.is_valid():
-      name = form.cleaned_data['contact_name']
-      email = form.cleaned_data['email']
-
-      print(name, email)
-
-
-  # return HttpResponse('Place holder: contact form.')
-  # form = ContactForm()
-  return render(request, 'polls/form.html', {'form':form})
-
-
-def snippet_detail(request):
-
-  form = SnippetForm()
-
-  if request.method == 'POST':
-    form = SnippetForm(request.POST)
-    if form.is_valid():
-      print("snippet is VALID")
-      form.save()
-  
-
-  return render(request, 'polls/form.html', {'form':form})
 
 
 def question_and_input(request):
@@ -63,3 +35,39 @@ def question_and_input(request):
   }
   
   return render(request, 'polls/index.html', context)
+
+def question_detail(request, question_id):
+  question = Question.objects.get(pk=question_id)
+  return render(request, 'polls/detail.html', {'question':question})
+
+def  question_result(request, question_id):
+  question = Question.objects.get(pk=question_id)
+  return render(request, 'polls/result.html', {'question':question})
+
+
+
+  ## Below is for learning how to do post
+def contact(request):
+  if request.method == 'POST':
+    form = ContactForm(request.POST)
+    if form.is_valid():
+      name = form.cleaned_data['contact_name']
+      email = form.cleaned_data['email']
+      print(name, email)
+  # return HttpResponse('Place holder: contact form.')
+  # form = ContactForm()
+  return render(request, 'polls/form.html', {'form':form})
+
+
+def snippet_detail(request):
+
+  form = SnippetForm()
+
+  if request.method == 'POST':
+    form = SnippetForm(request.POST)
+    if form.is_valid():
+      print("snippet is VALID")
+      form.save()
+  
+
+  return render(request, 'polls/form.html', {'form':form})

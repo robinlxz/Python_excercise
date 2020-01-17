@@ -1,13 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 {% for question in question_list %}
-  <h2>{{question.question_text}}</h2>
-  {% for choice in question.choice_set.all %}
-  <h3>{{choice.choice_text}}</h3>
-  {% endfor %}
+<div class="card mb-3">
+  <h2 class="text-center">{{ question.question_text }}</h2>
+  <div class="card-body">
+    <ul class="list-group mb-5">
+    {% for choice in question.choice_set.all %}    
+      <li>{{ choice.choice_text }}</li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'polls:result' question.id %}" class="btn btn-dark btn-sm">Results</a>
+    <a href="{% url 'polls:question_detail' question.id %}" class="btn btn-dark btn-sm">Detail</a>
+
+  </div>
+</div>
 {% endfor %}
+
 <hr>
 <h2>Submit a question below</h2>
 <form method="POST">
   {% csrf_token %}
-  {{question_form}}
-  <button>Submit</button>
+  {{ question_form }}
+  <h3>This part is not working due to fail to use POST method in View class</h3>
+  <button class="btn-dark">Submit</button>
 </form>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-5 text-container">
+  {{question.question_text}}
+</h2>
+
+<ul class="list-group mb-5">
+  {% for choice in question.choice_set.all %}
+  <li class="list-group-item">{{ choice }} <span><button>Vote</button></span></li>
+  {% endfor %}
+</ul>
+
+
+<h2>Below is from Django Crash course</h2>
+<form action="#" method="post">
+  {% for choice in question.choice_set.all %}
+  <input 
+  type = "radio"
+  name = "choice"
+  class="form-check-input"
+  id = "choice{{ forloop.counter }}"
+  value = "{{ choice.id }}"
+  />
+  <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+  {% endfor %}
+  <!-- <button>Submit</button> -->
+  <input type="submit" value="Vote" class="btn btn-success btn-lg btn-block mt-4" />
+</form>
+
+
+<a href="{% url 'polls:index' %}" class="btn btn-dark">Back to index</a>
+
+
+{% endblock %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+	{% csrf_token %} 
+	{% for choice in question.choice_set.all %}
+		<div class="form-check">
+			<input
+				type="radio"
+				name="choice"
+				class="form-check-input"
+				id="choice{{ forloop.counter }}"
+				value="{{ choice.id }}"
+			/>
+			<label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label
+			>
+		</div>
+	{% endfor %}
+	<input type="submit" value="Vote" class="btn btn-success btn-lg btn-block mt-4" />
+</form>
