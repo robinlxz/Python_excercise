@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card mb-5">
+  <div class="card-body">
+    Hello world from record APP in review0205
+    {% if all_people %}
+      <ul>
+        {% for person in all_people %}
+        <li>{{person.name}} <a class="float-right" href="{% url 'record:update_age' person.id %}">update age</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>
+<div class="card mb-5">
+  <div class="card-body">
+    <p class="lead">Add new ppl here</p>
+    <form action="#" method="POST">
+      {% csrf_token %}
+    {{person_form}}
+    <br>
+    <button class="btn-dark">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+Hello world from entry0206APP
+{% for choice in all_question_choices %}
+<div class="card mb-5">
+  <div class="card-body">
+    <p class="lead">{{choice.choice_text}}</p>
+    <p class="lead">Chips:{{choice.choice_chips}}</p>
+    {{choice.question.id}}
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

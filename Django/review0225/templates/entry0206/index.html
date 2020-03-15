@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+Hello world from entry0206APP
+{% for question in all_questions %}
+<div class="card mb-5">
+  <div class="card-body">
+    <p class="lead">{{question.question_text}}</p>
+    <a href="{% url 'entry0206:question_bet' question.id%}" class="btn btn-success">Go</a>
+    <a href="{% url 'entry0206:question_info' question.id%}" class="btn btn-info">Info</a>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <p class="lead">{{person.name}}, {{person.age}}</p>
+      <form action="" method="POST">
+        {% csrf_token %}
+        {{person_age_form}}
+        <button class="btn-info">Update</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
