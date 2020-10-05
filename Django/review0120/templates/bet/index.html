@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card mb-5">
+  <h3>This one don't have csrf token</h3>
+  {% for team in team_list %}
+  <div class="card-body">
+    <h3>Team Name: {{team.team_name}}</h3>
+    <h4>Bet Value: {{team.team_bet}}</h4>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h3>TeamForm with separate attributes</h3>
+    <form action="{% url 'bet:index' %}" method="POST">
+      {% csrf_token %}
+      <h4>Name: {{form.team_name}}</h4>
+      <h4>Bet: {{form.team_bet}}</h4>
+      <button class="btn-dark">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-body">
+    <h3>TeamForm with form</h3>
+    <form action="{% url 'bet:index' %}" method="POST">
+      {% csrf_token %}
+      {{form}}
+      <button class="btn-dark">Submit</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

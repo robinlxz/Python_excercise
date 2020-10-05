@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <p class="lead">{{question.question_text}}</p>
+    {% for choice in choices_for_question %}
+    <div class="mb-3">
+      {{choice.choice_text}}
+      <a href="{% url 'event0123:choice_bet' choice.id %}" class="btn btn-dark float-right">Bet choice</a>
+      <br>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for question in question_list %}
+  <div class="card mb-5">
+    <div class="card-body">
+      <p class="lead">{{ question.question_text }}</p>
+      <a href="{% url 'event0123:question_bet' question.id %}" class="btn btn-primary 
+      {% if question.question_lock %}
+      disabled
+      {% endif %}" role="button">Go Bet</a>
+      <a href="{% url 'event0123:question_info' question.id%}" class="btn btn-info">Info</a>
+
+
+      <!-- <hr>
+      For test
+      <a href="{% url 'event0123:question_bet' question.id %}"><button disabled>Disabled button inside link</button></a>
+      <button class="btn btn-dark" {% if question.question_lock %}disabled{% endif %}>disable button</button>
+      <a href="#" class="btn btn-primary 
+      {% if question.question_lock %}
+      disabled
+      {% endif %}">disabled link</a> -->
+
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}

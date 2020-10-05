@@ -1,0 +1,8 @@
+<h1>Todo list</h1>
+<a href="http://127.0.0.1:8000/todo/api/todo/">API for todo list is here</a>
+
+<ul>
+{% for item in todo_list %}
+  <li><a href="{% url 'todo_app:detail' item.id %}">{{item.todo_name}}</a></li>
+{% endfor %}
+</ul>

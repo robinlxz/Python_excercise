@@ -1,0 +1,13 @@
+{% if notdo_item %}
+  <h1>{{notdo_item.notdo_name}}</h1>
+  <h2>Reason: {{notdo_item.notdo_description}}</h2>
+{% else %}
+  <h1>There is no such item in notdo list</h1>
+  <!-- Should raise error -->
+{% endif %}
+
+<form action="#" method="post">
+  {% csrf_token %}
+  {{notdo_item_desc_form}}
+  <button>Submit Description</button>
+</form>

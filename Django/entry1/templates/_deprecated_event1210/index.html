@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <title>Index</title>
+</head>
+<body>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h2>Deprecate this Django FE page on 2020.01.07, due to only API based website is acceptable. (Efficiency differentce)</h2>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-body text-center">
+      {% for question in question_list %}
+      <h4 class="mb-5 text-center">{{ question.question_text }}</h4>
+        {% for choice in question.choice_set.all %}
+        <h5>{{choice.choice_text}} <span><input type="text"></span> </h5>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>

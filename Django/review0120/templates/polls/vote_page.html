@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'polls:index' %}" class="btn btn-dark">Back to index</a>
+
+<div class="card">
+  <div class="card-body mb-6">
+    <p class="lead mb-4">{{ question.question_text }}</p>
+    {% csrf_token %}
+
+    {% for choice in question.choice_set.all %}
+      <form class='mb-3' action="{% url 'polls:vote' question.id choice.id %}">
+        {{choice.choice_text}}
+        <!-- <button class="btn-success">Submit</button> -->
+        <span class="float-right"><input type="submit" value="Vote" ></span>
+      </form>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

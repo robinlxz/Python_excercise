@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a href="{% url 'polls:index' %}" class="btn btn-dark">Back to index</a>
+
+<div class="card">
+  <div class="card-body mb-6">
+    <p class="lead mb-4">{{question}}</p>
+    <ul>
+    {% for choice in question.choice_set.all %}
+      <li>{{choice.choice_text}} <span class="float-right badge">{{choice.votes}} votes</span></li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

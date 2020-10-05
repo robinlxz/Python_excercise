@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <p class="lead">{{choice.choice_text}}</p>
+    <p>Chips on the choice: {{choice.choice_bet}}</p>
+    <form action="{% url 'event0123:choice_bet' choice.id %}" method='POST' class='mb-3'>
+      {% csrf_token %}
+      Bet chips: {{choice_form.choice_bet}}
+      <button class="btn-success">Bet!!</button>
+      <!-- {{ choice_form.errors }} -->
+    </form>
+    {% if error_message %}
+    <p class="alert alert-danger">
+      <strong>{{ error_message }}</strong>
+    </p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

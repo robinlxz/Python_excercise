@@ -1,0 +1,15 @@
+{% for skill in skill_list %}
+  <hr>
+  <h3>{{skill.name}}</h3>
+  <button><a href="{% url 'skills:detail' skill.id %}">go there</a></button>
+  <!-- <hr> -->
+  <form action="{% url 'skills:plus_one' skill.id %}">
+    <button>Skill point +1</button>
+  </form>
+{% endfor %}
+<hr>
+<form action="#" method="post">
+  {% csrf_token %}
+  {{ skill_form }}
+  <button>Submit new skill</button>
+</form>

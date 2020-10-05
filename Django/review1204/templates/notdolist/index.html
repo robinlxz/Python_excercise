@@ -1,0 +1,19 @@
+<h1>!= list</h1>
+<hr>
+
+{% for item in notdo_item_list %}
+  <!-- <h2>{{item.notdo_name}}</h2> -->
+  <h2><a href="{% url 'notdolist:detail' item.id %}">{{item.notdo_name}}</a></h2>
+  <h3>On record since: {{item.start_time}}</h3>
+  <hr>
+{% endfor %}
+
+<h2>Below is for form</h2>
+
+
+
+<form action="#" method="post">
+  {% csrf_token %}
+  {{notdo_item_desc_form}}
+  <button>Submit</button>
+</form>

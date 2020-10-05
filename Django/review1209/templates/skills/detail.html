@@ -1,0 +1,18 @@
+<h1>Skill: {{skill.name}}</h1>
+<h2>Create at: {{skill.create_time}}</h2>
+<h2>Skill_point: {{skill.skill_point}}</h2>
+<h1>Skill ID: {{skill.id}}</h1>
+<hr>
+<form action="{% url 'skills:plus_one' skill.id %}">
+  <button>Skill point +1</button>
+</form>
+<hr>
+<h2>Test for change model values here</h2>
+<form action="{% url 'skills:update_with_form' skill.id %}" method="post">
+  {% csrf_token %}
+  <input type="int">
+  <button>Change skill point with form</button>
+</form>
+<hr>
+<button><a href="{% url 'skills:index' %}">Return</a></button>
+

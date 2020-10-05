@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <p class="lead">{{question.question_text}}</p>
+    {% for choice in choices_for_question %}
+    <div class="mb-3">
+      {{choice.choice_text}}
+      <div class="float-right">Odd: {{choice.choice_odd}}</div>
+      {% if question.question_lock %}
+      <br>
+      Your bet: {{choice.choice_bet}}
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

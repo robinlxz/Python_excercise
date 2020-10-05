@@ -1,0 +1,4 @@
+{
+  "python.pythonPath": "/anaconda3/envs/django2/bin/python",
+  "editor.detectIndentation": false
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <title>Document</title>
+</head>
+<body>
+  
+  {% for choice in choice_list %}
+  <h2 class="text-center mb-5">{{choice.choice_text}}</h2>
+  <h3 class="text-center mb-2"><ul>
+    <li>Team A: {{choice.teamA_bet}}</li>
+    <li>Team B: {{choice.teamB_bet}}</li>
+  </ul></h3>
+  <!-- <input type="submit" value="Vote" class="btn btn-success btn-lg mt-4" /> -->
+  {% endfor %}  
+  
+  
+  
+</body>
+</html>

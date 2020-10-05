@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for task in task_list %}
+<div class="card mb-5">
+  <div class="card-body">
+    <p class="lead">{{task.task_name}}</p>
+    <a href="{% url 'todo:task_detail' task.id%}" class="btn btn-dark">Detail</a>
+  </div>
+</div>
+
+{% endfor %}
+
+<div class="card mb-5">
+  <div class="card-body">
+    <form action="{% url 'todo:index' %}" method="POST">
+      {% csrf_token %}
+      {{form}}
+      <button>Submit</button>
+    </form>
+    
+  </div>
+</div>
+
+{% endblock %}
